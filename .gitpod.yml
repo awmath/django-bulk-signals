@@ -1,8 +1,12 @@
+---
 image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - init: pip install -r requirements.txt
+  - init: |
+      pip install -r requirements.txt
+      pip install pre-commit
+      PIP_USER=no pre-commit install --install-hooks
 vscode:
   extensions:
     - ms-python.python

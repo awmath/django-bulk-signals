@@ -1,10 +1,11 @@
+---
 name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   testing:
@@ -12,26 +13,26 @@ jobs:
     strategy:
       max-parallel: 2
       matrix:
-        python-version: ['3.9', '3.10']
-        django-version: ['3.2', '4.0']
-      
+        python-version: ["3.9", "3.10"]
+        django-version: ["3.2", "4.0"]
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install Dependencies
-      env:
-        DJANGO: ${{ matrix.django-version }}
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install django==${DJANGO}
-    - name: Run Tests
-      run: |
-        pytest
-  
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Dependencies
+        env:
+          DJANGO: ${{ matrix.django-version }}
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install django==${DJANGO}
+      - name: Run Tests
+        run: |
+          pytest
+
   # one more test and upload coverage
   test-coverage:
     needs: testing
@@ -39,20 +40,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    - name: Run Tests
-      run: |
-        pytest --cov 
-    - name: "Upload coverage to Codecov"
-      uses: codecov/codecov-action@v2
-      with:
-        fail_ci_if_error: true
-        token: ${{ secrets.CODECOV_TOKEN }}
+      - uses: actions/checkout@v2
+      - name: Set up Python 3
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run Tests
+        run: |
+          pytest --cov
+      - name: "Upload coverage to Codecov"
+        uses: codecov/codecov-action@v2
+        with:
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
