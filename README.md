@@ -1,3 +1,4 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/awmath/django-bulk-signals/badge)](https://www.codefactor.io/repository/github/awmath/django-bulk-signals)
 # django-bulk-signals
 signals for usage with django bulk queryset methods
 
