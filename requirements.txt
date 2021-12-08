@@ -1,0 +1,7 @@
+pytest
+pytest-django
+pytest-mock
+django
+django-environ
+pytest-cov
+coverage
