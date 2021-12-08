@@ -5,6 +5,15 @@
 signals for usage with django bulk queryset methods
 
 # usage
+Add app to settings
+```
+INSTALLED_APPS = [
+    ...,
+    bulk_signals,
+    ...
+]
+```
+Import signals and connect.
 
 ```
 from django.dispatch import receiver
