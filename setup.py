@@ -12,6 +12,8 @@ try:
 except Exception:
     long_description = ""
 
+from bulk_signals import __version__
+
 setup(
     # Name of the package
     name="django-bulk-signals",
@@ -19,7 +21,7 @@ setup(
     packages=find_packages(".", exclude=["tests"]),
     # Start with a small number and increase it with
     # every change you make https://semver.org
-    version="0.1-pre",
+    version=__version__,
     # Chose a license from here: https: //
     # help.github.com / articles / licensing - a -
     # repository. For example: MIT
