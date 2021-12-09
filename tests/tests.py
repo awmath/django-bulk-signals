@@ -19,9 +19,9 @@ def test_fixture(objects):
 
 
 def test_bulk_create(mocker):
-    create_stub = mocker.patch("bulk_signals.tests.models.create_stub")
-    bulk_update_stub = mocker.patch("bulk_signals.tests.models.update_stub")
-    update_stub = mocker.patch("bulk_signals.tests.models.query_update_stub")
+    create_stub = mocker.patch("tests.models.create_stub")
+    bulk_update_stub = mocker.patch("tests.models.update_stub")
+    update_stub = mocker.patch("tests.models.query_update_stub")
 
     objects = BulkTestModel.objects.bulk_create([BulkTestModel() for _ in range(10)])
 
@@ -31,9 +31,9 @@ def test_bulk_create(mocker):
 
 
 def test_bulk_update(mocker, objects):
-    create_stub = mocker.patch("bulk_signals.tests.models.create_stub")
-    bulk_update_stub = mocker.patch("bulk_signals.tests.models.update_stub")
-    update_stub = mocker.patch("bulk_signals.tests.models.query_update_stub")
+    create_stub = mocker.patch("tests.models.create_stub")
+    bulk_update_stub = mocker.patch("tests.models.update_stub")
+    update_stub = mocker.patch("tests.models.query_update_stub")
 
     for o in objects:
         o.num = 1
@@ -47,9 +47,9 @@ def test_bulk_update(mocker, objects):
 
 
 def test_update(mocker, objects):
-    create_stub = mocker.patch("bulk_signals.tests.models.create_stub")
-    bulk_update_stub = mocker.patch("bulk_signals.tests.models.update_stub")
-    update_stub = mocker.patch("bulk_signals.tests.models.query_update_stub")
+    create_stub = mocker.patch("tests.models.create_stub")
+    bulk_update_stub = mocker.patch("tests.models.update_stub")
+    update_stub = mocker.patch("tests.models.query_update_stub")
 
     BulkTestModel.objects.update(num=1)
 
@@ -60,9 +60,9 @@ def test_update(mocker, objects):
 
 
 def test_no_action(objects, mocker):
-    create_stub = mocker.patch("bulk_signals.tests.models.create_stub")
-    bulk_update_stub = mocker.patch("bulk_signals.tests.models.update_stub")
-    update_stub = mocker.patch("bulk_signals.tests.models.query_update_stub")
+    create_stub = mocker.patch("tests.models.create_stub")
+    bulk_update_stub = mocker.patch("tests.models.update_stub")
+    update_stub = mocker.patch("tests.models.query_update_stub")
 
     for o in objects:
         o.num = 1

@@ -2,6 +2,7 @@ black
 coverage
 django
 django-environ
+isort
 pytest
 pytest-cov
 pytest-django
