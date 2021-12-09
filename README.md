@@ -1,3 +1,6 @@
+[![GitHub version](https://badge.fury.io/gh/awmath%2Fdjango-bulk-signals.svg)](https://badge.fury.io/gh/awmath%2Fdjango-bulk-signals)
+[![PyPI version](https://badge.fury.io/py/django-bulk-signals.svg)](https://badge.fury.io/py/django-bulk-signals)
+
 ![Testing](https://github.com/awmath/django-bulk-signals/actions/workflows/ci.yaml/badge.svg)
 [![CodeFactor](https://www.codefactor.io/repository/github/awmath/django-bulk-signals/badge)](https://www.codefactor.io/repository/github/awmath/django-bulk-signals)
 [![codecov](https://codecov.io/gh/awmath/django-bulk-signals/branch/main/graph/badge.svg?token=aaYFGNAvqM)](https://codecov.io/gh/awmath/django-bulk-signals)
