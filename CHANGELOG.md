@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v0.2.1 (2022-12-07)
+### Fix
+* Added missing tests module ([`9d4581c`](https://github.com/awmath/django-bulk-signals/commit/9d4581cbd0bc5a6f6d212e1ca796a1349dad2f79))
+* Bulk_update no longer triggers the pre_update signal ([`809c86a`](https://github.com/awmath/django-bulk-signals/commit/809c86adcbe92d485ca0c1c48b59792ec26efdd4))
+
 ## v0.2.0 (2022-12-07)
 ### Feature
 * Added pre_*** action signals ([`ba6eb9a`](https://github.com/awmath/django-bulk-signals/commit/ba6eb9a869dd683d8675d6e45b41d67159ba0f13))
