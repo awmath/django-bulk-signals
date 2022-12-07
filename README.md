@@ -18,6 +18,12 @@ INSTALLED_APPS = [
 ```
 Import signals and connect.
 
+# Summary
+This django library adds signals for the bulk database actions provided by django (`bulk_create`, `bulk_update` and `QuerySet.update`)
+
+# Usage
+The signals are connected the same way as in Django itself.
+To see them in action use the following snippet:
 ```
 from django.dispatch import receiver
 from bulk_signals import signals

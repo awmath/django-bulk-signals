@@ -11,7 +11,8 @@
 	// This can be used to network with other containers or the host.
 	// "forwardPorts": [5000, 5432],
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "pip install --user -r requirements.txt",
+	// "postCreateCommand": "pip install --user -r requirements.txt",
+	"postCreateCommand": "pre-commit install --install-hooks"
 	// Configure tool-specific properties.
 	// "customizations": {},
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
