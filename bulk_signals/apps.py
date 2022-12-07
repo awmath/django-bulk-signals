@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from django.apps import AppConfig, apps
-from django.db.models.signals import post_save
 
 from bulk_signals import signals
 
@@ -18,7 +17,7 @@ class BulkSignalsConfig(AppConfig):
         def bulk_create(queryset, objects, **kwargs):
             # get model label from queryset
             model = apps.get_model(queryset.model._meta.label)
-            
+
             signals.pre_bulk_create.send(sender=model, objects=objects, **kwargs)
             created_objects = base_bulk_create(queryset, objects, **kwargs)
             signals.post_bulk_create.send(sender=model, objects=objects, **kwargs)
@@ -32,10 +31,14 @@ class BulkSignalsConfig(AppConfig):
         def bulk_update(queryset, objects, fields, **kwargs):
             queryset._hints["is_bulk_update"] = True
             model = apps.get_model(queryset.model._meta.label)
-            
-            signals.pre_bulk_update.send(sender=model, objects=objects, fields=fields, **kwargs)
+
+            signals.pre_bulk_update.send(
+                sender=model, objects=objects, fields=fields, **kwargs
+            )
             return_value = base_bulk_update(queryset, objects, fields, **kwargs)
-            signals.post_bulk_update.send(sender=model, objects=objects, fields=fields, **kwargs)
+            signals.post_bulk_update.send(
+                sender=model, objects=objects, fields=fields, **kwargs
+            )
 
             return return_value
 
@@ -46,14 +49,17 @@ class BulkSignalsConfig(AppConfig):
         def update(queryset, **kwargs):
             model = apps.get_model(queryset.model._meta.label)
 
-            signals.pre_query_update.send(sender=model, queryset=queryset, update_kwargs=kwargs)
-            return_val = base_update(queryset, **kwargs)
             # if this update is part of a bulk_update action skip this part
             if queryset._hints.get("is_bulk_update", False):
-                return return_val
+                return base_update(queryset, **kwargs)
 
-            
-            signals.post_query_update.send(sender=model, queryset=queryset, update_kwargs=kwargs)
+            signals.pre_query_update.send(
+                sender=model, queryset=queryset, update_kwargs=kwargs
+            )
+            return_val = base_update(queryset, **kwargs)
+            signals.post_query_update.send(
+                sender=model, queryset=queryset, update_kwargs=kwargs
+            )
 
             return return_val
 

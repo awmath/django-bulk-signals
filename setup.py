@@ -4,6 +4,8 @@ from distutils.core import setup
 
 from setuptools import find_packages
 
+from bulk_signals import __version__
+
 # User-friendly description from README.md
 current_directory = os.path.dirname(os.path.abspath(__file__))
 try:
@@ -12,7 +14,6 @@ try:
 except Exception:
     long_description = ""
 
-from bulk_signals import __version__
 
 setup(
     # Name of the package
