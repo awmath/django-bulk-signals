@@ -4,8 +4,9 @@
 ![Testing](https://github.com/awmath/django-bulk-signals/actions/workflows/ci.yaml/badge.svg)
 [![CodeFactor](https://www.codefactor.io/repository/github/awmath/django-bulk-signals/badge)](https://www.codefactor.io/repository/github/awmath/django-bulk-signals)
 [![codecov](https://codecov.io/gh/awmath/django-bulk-signals/branch/main/graph/badge.svg?token=aaYFGNAvqM)](https://codecov.io/gh/awmath/django-bulk-signals)
-# django-bulk-signals
-signals for usage with django bulk queryset methods
+
+# Summary
+This django library adds signals for the bulk database actions provided by django (`bulk_create`, `bulk_update` and `QuerySet.update`)
 
 # usage
 Add app to settings
@@ -16,13 +17,7 @@ INSTALLED_APPS = [
     ...
 ]
 ```
-Import signals and connect.
-
-# Summary
-This django library adds signals for the bulk database actions provided by django (`bulk_create`, `bulk_update` and `QuerySet.update`)
-
-# Usage
-The signals are connected the same way as in Django itself.
+Import signals and connect.The signals are connected the same way as in Django itself.
 To see them in action use the following snippet:
 ```
 from django.dispatch import receiver
