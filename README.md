@@ -29,5 +29,4 @@ def debug(*args, **kwargs):
 ```
 
 # TODO
--  pre_*** signals
 -  test against different database backends

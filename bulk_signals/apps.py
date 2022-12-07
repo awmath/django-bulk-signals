@@ -16,13 +16,12 @@ class BulkSignalsConfig(AppConfig):
         base_bulk_create = QuerySet.bulk_create
 
         def bulk_create(queryset, objects, **kwargs):
-            no_action = kwargs.pop("no_action", False)
-            created_objects = base_bulk_create(queryset, objects, **kwargs)
-            if no_action:
-                return created_objects
-
+            # get model label from queryset
             model = apps.get_model(queryset.model._meta.label)
-            signals.post_bulk_create.send(sender=model, objects=objects)
+            
+            signals.pre_bulk_create.send(sender=model, objects=objects, **kwargs)
+            created_objects = base_bulk_create(queryset, objects, **kwargs)
+            signals.post_bulk_create.send(sender=model, objects=objects, **kwargs)
 
             return created_objects
 
@@ -31,14 +30,12 @@ class BulkSignalsConfig(AppConfig):
         base_bulk_update = QuerySet.bulk_update
 
         def bulk_update(queryset, objects, fields, **kwargs):
-            no_action = kwargs.pop("no_action", False)
             queryset._hints["is_bulk_update"] = True
-            return_value = base_bulk_update(queryset, objects, fields, **kwargs)
-            if no_action:
-                return return_value
-
             model = apps.get_model(queryset.model._meta.label)
-            signals.post_bulk_update.send(sender=model, objects=objects)
+            
+            signals.pre_bulk_update.send(sender=model, objects=objects, fields=fields, **kwargs)
+            return_value = base_bulk_update(queryset, objects, fields, **kwargs)
+            signals.post_bulk_update.send(sender=model, objects=objects, fields=fields, **kwargs)
 
             return return_value
 
@@ -47,14 +44,16 @@ class BulkSignalsConfig(AppConfig):
         base_update = QuerySet.update
 
         def update(queryset, **kwargs):
-            no_action = kwargs.pop("no_action", False)
+            model = apps.get_model(queryset.model._meta.label)
+
+            signals.pre_query_update.send(sender=model, queryset=queryset, update_kwargs=kwargs)
             return_val = base_update(queryset, **kwargs)
             # if this update is part of a bulk_update action skip this part
-            if no_action or queryset._hints.get("is_bulk_update", False):
+            if queryset._hints.get("is_bulk_update", False):
                 return return_val
 
-            model = apps.get_model(queryset.model._meta.label)
-            signals.post_query_update.send(sender=model, queryset=queryset)
+            
+            signals.post_query_update.send(sender=model, queryset=queryset, update_kwargs=kwargs)
 
             return return_val
 

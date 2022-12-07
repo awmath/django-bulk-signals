@@ -58,22 +58,43 @@ def test_update(mocker, objects):
     assert update_stub.call_count == 1
     assert create_stub.call_count == 0
 
+from django.dispatch import receiver
 
-def test_no_action(objects, mocker):
-    create_stub = mocker.patch("tests.models.create_stub")
-    bulk_update_stub = mocker.patch("tests.models.update_stub")
-    update_stub = mocker.patch("tests.models.query_update_stub")
+from bulk_signals import signals
 
-    for o in objects:
-        o.num = 1
-    BulkTestModel.objects.bulk_update(objects, ["num"], no_action=True)
 
-    BulkTestModel.objects.update(num=2, no_action=True)
 
-    BulkTestModel.objects.bulk_create(
-        [BulkTestModel() for _ in range(10)], no_action=True
-    )
+def test_pre_bulk_create():
+    @receiver(signal=signals.pre_bulk_create)
+    def double(sender, objects, *args, **kwargs):
+        for o in objects:
+            o.num = o.num * 2
 
-    assert bulk_update_stub.call_count == 0
-    assert update_stub.call_count == 0
-    assert create_stub.call_count == 0
+    BulkTestModel.objects.bulk_create([BulkTestModel(num=1)])
+
+    assert BulkTestModel.objects.get().num == 2
+
+def test_pre_bulk_update():
+    obj = BulkTestModel.objects.create(num=1)
+
+    obj.num = 2
+
+    @receiver(signal=signals.pre_bulk_update)
+    def triple(sender, objects, *args, **kwargs):
+        for o in objects:
+            o.num = o.num * 3
+
+    BulkTestModel.objects.bulk_update([obj], fields=['num'])
+
+    assert BulkTestModel.objects.get().num == 6
+
+def test_pre_query_update():
+    BulkTestModel.objects.create(num=1)
+
+    @receiver(signal=signals.pre_query_update)
+    def half(sender, queryset, update_kwargs, **kwargs):
+        update_kwargs['num'] /= 2
+
+    BulkTestModel.objects.update(num=8)
+
+    assert BulkTestModel.objects.get().num == 4
