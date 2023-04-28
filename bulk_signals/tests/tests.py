@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import pytest
 from django.db.models import Sum
 from django.dispatch import receiver
@@ -101,3 +100,20 @@ def test_pre_query_update():
     BulkTestModel.objects.update(num=8)
 
     assert BulkTestModel.objects.get().num == 4
+
+
+def query_update_count_test(*args, **kwargs):
+    assert kwargs["update_count"] == 2
+
+
+def test_query_update_return_count(mocker):
+    BulkTestModel.objects.create(num=1)
+    BulkTestModel.objects.create(num=1)
+    BulkTestModel.objects.create(num=2)
+
+    mocker.patch(
+        "bulk_signals.tests.models.query_update_post_stub",
+        wraps=query_update_count_test,
+    )
+
+    BulkTestModel.objects.filter(num=1).update(num=3)

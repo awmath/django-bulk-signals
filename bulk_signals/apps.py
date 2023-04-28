@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.apps import AppConfig, apps
 
 from bulk_signals import signals
@@ -58,7 +57,10 @@ class BulkSignalsConfig(AppConfig):
             )
             return_val = base_update(queryset, **kwargs)
             signals.post_query_update.send(
-                sender=model, queryset=queryset, update_kwargs=kwargs
+                sender=model,
+                queryset=queryset,
+                update_kwargs=kwargs,
+                update_count=return_val,
             )
 
             return return_val
