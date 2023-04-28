@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.db import models
 from django.dispatch import receiver
 
@@ -31,6 +30,15 @@ def query_update_stub(*args, **kwargs):
 @receiver(signals.post_query_update)
 def call_query_update_stub(*args, **kwargs):
     query_update_stub(*args, **kwargs)
+
+
+def query_update_post_stub(*args, **kwargs):
+    pass
+
+
+@receiver(signals.post_query_update)
+def call_post_query_update_stub(*args, **kwargs):
+    query_update_post_stub(*args, **kwargs)
 
 
 class BulkTestModel(models.Model):
