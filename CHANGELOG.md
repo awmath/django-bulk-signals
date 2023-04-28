@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.3.0 (2023-04-28)
+### Feature
+* Post query update signal now passed the update count ([`e2424c9`](https://github.com/awmath/django-bulk-signals/commit/e2424c9a6033aab0164e94ff32c6699658291555))
+
 ## v0.2.1 (2022-12-07)
 ### Fix
 * Added missing tests module ([`9d4581c`](https://github.com/awmath/django-bulk-signals/commit/9d4581cbd0bc5a6f6d212e1ca796a1349dad2f79))
