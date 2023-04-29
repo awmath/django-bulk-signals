@@ -23,11 +23,14 @@ To see them in action use the following snippet:
 from django.dispatch import receiver
 from bulk_signals import signals
 
-@receiver(signals.post_bulk_update, signals.post_bulk_update, signals.post_query_update)
+@receiver(signals.pre_bulk_update, signals.post_bulk_update, signals.post_query_update)
 def debug(*args, **kwargs):
     print(args)
     print(kwargs)
 ```
+
+You can skip the signals on a single execution by using the `skip_signal=True` keyword argument.
+Which keyword should be used for skipping is configurable via the `BULK_SIGNALS_SKIP_KEY="skip_signal"` configuration in the django settings.
 
 # TODO
 -  test against different database backends
