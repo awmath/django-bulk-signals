@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.4.0 (2023-04-29)
+### Feature
+* Signals can be skipped by a keyword argument ([`894e0ec`](https://github.com/awmath/django-bulk-signals/commit/894e0ec69e4f73290085b0e9c0141a0bef19cf3d))
+
 ## v0.3.0 (2023-04-28)
 ### Feature
 * Post query update signal now passed the update count ([`e2424c9`](https://github.com/awmath/django-bulk-signals/commit/e2424c9a6033aab0164e94ff32c6699658291555))
