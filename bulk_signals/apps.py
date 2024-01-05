@@ -19,15 +19,15 @@ class BulkSignalsConfig(AppConfig):
 
         base_bulk_create = QuerySet.bulk_create
 
-        def bulk_create(queryset, objects, **kwargs):
+        def bulk_create(queryset, objs, **kwargs):
             if skip_signal(kwargs):
-                return base_bulk_create(queryset, objects, **kwargs)
+                return base_bulk_create(queryset, objs, **kwargs)
             # get model label from queryset
             model = apps.get_model(queryset.model._meta.label)
 
-            signals.pre_bulk_create.send(sender=model, objects=objects, **kwargs)
-            created_objects = base_bulk_create(queryset, objects, **kwargs)
-            signals.post_bulk_create.send(sender=model, objects=objects, **kwargs)
+            signals.pre_bulk_create.send(sender=model, objects=objs, **kwargs)
+            created_objects = base_bulk_create(queryset, objs, **kwargs)
+            signals.post_bulk_create.send(sender=model, objects=objs, **kwargs)
 
             return created_objects
 
@@ -35,23 +35,23 @@ class BulkSignalsConfig(AppConfig):
 
         base_bulk_update = QuerySet.bulk_update
 
-        def bulk_update(queryset, objects, fields, **kwargs):
+        def bulk_update(queryset, objs, fields, **kwargs):
             # add a queryset hint so update signals won't be
             # triggerd for bulk_update
             queryset._hints["is_bulk_update"] = True
 
             # check if the signals should be skipped
             if skip_signal(kwargs):
-                return base_bulk_update(queryset, objects, fields, **kwargs)
+                return base_bulk_update(queryset, objs, fields, **kwargs)
 
             model = apps.get_model(queryset.model._meta.label)
 
             signals.pre_bulk_update.send(
-                sender=model, objects=objects, fields=fields, **kwargs
+                sender=model, objects=objs, fields=fields, **kwargs
             )
-            return_value = base_bulk_update(queryset, objects, fields, **kwargs)
+            return_value = base_bulk_update(queryset, objs, fields, **kwargs)
             signals.post_bulk_update.send(
-                sender=model, objects=objects, fields=fields, **kwargs
+                sender=model, objects=objs, fields=fields, **kwargs
             )
 
             return return_value
