@@ -117,3 +117,8 @@ def test_query_update_return_count(mocker):
     )
 
     BulkTestModel.objects.filter(num=1).update(num=3)
+
+
+def test_bulk_signal_arguments():
+    BulkTestModel.objects.bulk_create(objs=[])
+    BulkTestModel.objects.bulk_update(objs=[], fields=["num"])
