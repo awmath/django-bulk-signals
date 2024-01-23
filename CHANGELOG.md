@@ -2,6 +2,17 @@
 
 
 
+## v0.4.2 (2024-01-23)
+
+### Fix
+
+* fix: test release ([`54ff106`](https://github.com/awmath/django-bulk-signals/commit/54ff106477a0f137c060f241b7dbf85d64dc710c))
+
+* fix: test release ([`8c0bf08`](https://github.com/awmath/django-bulk-signals/commit/8c0bf0864ad308e7a9e50102e6d2a0353ee0fd2e))
+
+* fix: update pypi release process ([`2c4d621`](https://github.com/awmath/django-bulk-signals/commit/2c4d6217eeee1b427340494e8d3dfa4778e9e431))
+
+
 ## v0.4.1 (2024-01-22)
 
 ### Chore
