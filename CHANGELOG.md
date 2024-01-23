@@ -2,6 +2,15 @@
 
 
 
+## v0.4.3 (2024-01-23)
+
+### Fix
+
+* fix: test release ([`4eace43`](https://github.com/awmath/django-bulk-signals/commit/4eace4326653ccf40faafa9c2c1511e3d631ea4f))
+
+* fix: test release ([`e0678e0`](https://github.com/awmath/django-bulk-signals/commit/e0678e0b05ba862ae3d98e1c0e0083d08e789749))
+
+
 ## v0.4.2 (2024-01-23)
 
 ### Fix
