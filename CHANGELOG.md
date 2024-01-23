@@ -2,6 +2,13 @@
 
 
 
+## v0.4.2 (2024-01-23)
+
+### Fix
+
+* fix: pypi release ([`037c2ba`](https://github.com/awmath/django-bulk-signals/commit/037c2ba35c2e4531f61c09875e76b79de189fa34))
+
+
 ## v0.4.1 (2024-01-22)
 
 ### Chore
