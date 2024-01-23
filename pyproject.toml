@@ -1,0 +1,18 @@
+[tool.coverage.run]
+source = ["bulk_signals"]
+relative_files = true
+include = ["bulk_signals/*"]
+omit = ["*tests*"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "bulk_signals.tests.settings"
+addopts = ["--reuse-db", "-p", "no:warnings", "--capture", "no"]
+python_files = "tests.py test_*.py"
+
+[tool.isort]
+profile = "black"
+float_to_top = true
+
+[tool.semantic_release]
+version_variables = ["bulk_signals/__init__.py:__version__"]
+major_on_zero = false
