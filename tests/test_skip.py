@@ -11,7 +11,7 @@ def skip(request):
 
 
 def test_bulk_create(mocker, skip):
-    create_stub = mocker.patch("bulk_signals.tests.models.create_stub")
+    create_stub = mocker.patch("tests.models.create_stub")
 
     BulkTestModel.objects.bulk_create(
         [BulkTestModel() for _ in range(10)], skip_signal=skip
@@ -21,7 +21,7 @@ def test_bulk_create(mocker, skip):
 
 
 def test_bulk_update(mocker, objects, skip):
-    bulk_update_stub = mocker.patch("bulk_signals.tests.models.update_stub")
+    bulk_update_stub = mocker.patch("tests.models.update_stub")
 
     BulkTestModel.objects.bulk_update(objects, ["num"], skip_signal=skip)
 
@@ -29,7 +29,7 @@ def test_bulk_update(mocker, objects, skip):
 
 
 def test_update(mocker, objects, skip):
-    update_stub = mocker.patch("bulk_signals.tests.models.query_update_stub")
+    update_stub = mocker.patch("tests.models.query_update_stub")
 
     BulkTestModel.objects.update(num=1, skip_signal=skip)
 
@@ -38,7 +38,7 @@ def test_update(mocker, objects, skip):
 
 def test_custom_key(mocker, skip, settings):
     settings.BULK_SIGNALS_SKIP_KEY = "different"
-    create_stub = mocker.patch("bulk_signals.tests.models.create_stub")
+    create_stub = mocker.patch("tests.models.create_stub")
 
     BulkTestModel.objects.bulk_create(
         [BulkTestModel() for _ in range(10)], different=skip
