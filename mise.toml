@@ -1,0 +1,25 @@
+min_version = "2026.2"
+
+[settings]
+experimental = true
+
+[settings.python]
+uv_venv_auto = "create|source"
+
+[hooks]
+postinstall = "prek install && prek install-hooks"
+
+[tools]
+prek = "latest"
+ruff = "latest"
+uv = "latest"
+
+
+[tasks.setup]
+dir = "{{config_root}}"
+run = "uv sync"
+
+[tasks.test]
+dir = "{{config_root}}"
+depends = ["setup"]
+run = "pytest"
