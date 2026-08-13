@@ -1,3 +1,5 @@
+
+
 [![GitHub version](https://badge.fury.io/gh/awmath%2Fdjango-bulk-signals.svg)](https://badge.fury.io/gh/awmath%2Fdjango-bulk-signals)
 [![PyPI version](https://badge.fury.io/py/django-bulk-signals.svg)](https://badge.fury.io/py/django-bulk-signals)
 
@@ -13,7 +15,7 @@ Add app to settings
 ```
 INSTALLED_APPS = [
     ...,
-    bulk_signals,
+    "bulk_signals",
     ...
 ]
 ```
