@@ -17,6 +17,9 @@ class BulkSignalsConfig(AppConfig):
         # monkey patch bulk method handling into the queryset
         from django.db.models.query import QuerySet
 
+        if getattr(QuerySet.bulk_create, "_bulk_signals_patched", False):
+            return
+
         base_bulk_create = QuerySet.bulk_create
 
         def bulk_create(queryset, objs, **kwargs):
@@ -31,6 +34,7 @@ class BulkSignalsConfig(AppConfig):
 
             return created_objects
 
+        bulk_create._bulk_signals_patched = True
         QuerySet.bulk_create = bulk_create
 
         base_bulk_update = QuerySet.bulk_update
@@ -56,6 +60,7 @@ class BulkSignalsConfig(AppConfig):
 
             return return_value
 
+        bulk_update._bulk_signals_patched = True
         QuerySet.bulk_update = bulk_update
 
         base_update = QuerySet.update
@@ -84,4 +89,5 @@ class BulkSignalsConfig(AppConfig):
 
             return return_val
 
+        update._bulk_signals_patched = True
         QuerySet.update = update
