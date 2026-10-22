@@ -28,7 +28,7 @@ Download = "https://github.com/awmath/django-bulk-signals"
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "tests.settings"
 django_find_project = false
-python_files = ["test_*.py"]
+python_files = ["test*.py"]
 pythonpath = ["."]
 
 [tool.coverage.run]
